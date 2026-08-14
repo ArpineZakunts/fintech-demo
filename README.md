@@ -8,8 +8,13 @@ API keys stay server-side, as they should.
 ## Stack
 
 - **Kotlin + Jetpack Compose** for UI
-- **Clean Architecture**: `domain` (models, repository interfaces, use cases) →
-  `data` (Ktor client, DTOs, mappers, repository impls) → `presentation` (MVI ViewModels + Compose screens)
+- **Clean Architecture as separate Gradle modules**, not just packages:
+  - `:domain` — pure Kotlin/JVM module (models, repository interfaces, use cases). No Android
+    or framework dependency, so it compiles and tests without an emulator.
+  - `:data` — Android library module (Ktor client, DTOs, mappers, repository implementations).
+    Depends on `:domain` only.
+  - `:app` — presentation (MVI ViewModels + Compose screens) and DI wiring. Depends on both
+    `:domain` and `:data`.
 - **MVI**: each screen has a `State`, an `Action` sealed interface, and (where needed) a
   one-shot `Effect` channel for navigation/snackbars
 - **Koin** for dependency injection

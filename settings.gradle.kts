@@ -14,4 +14,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "fintech-demo"
-include(":app")
+include(":app", ":domain", ":data")
