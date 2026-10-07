@@ -8,12 +8,12 @@
         android:icon="@mipmap/ic_launcher"
         android:label="Fintech Demo"
         android:name=".FintechDemoApp"
-        android:theme="@style/Theme.Material3.DayNight">
+        android:theme="@style/Theme.FintechDemo">
 
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.Material3.DayNight">
+            android:theme="@style/Theme.FintechDemo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

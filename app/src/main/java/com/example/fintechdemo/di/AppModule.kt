@@ -2,6 +2,7 @@ package com.example.fintechdemo.di
 
 import com.example.fintechdemo.data.remote.AiApi
 import com.example.fintechdemo.data.remote.StripeApi
+import com.example.fintechdemo.data.remote.mock.MockBackend
 import com.example.fintechdemo.data.repository.AiRepositoryImpl
 import com.example.fintechdemo.data.repository.PaymentRepositoryImpl
 import com.example.fintechdemo.domain.repository.AiRepository
@@ -21,9 +22,14 @@ import org.koin.dsl.module
 
 private const val BASE_URL = "https://api.example-fintech-demo.com"
 
+// No real backend exists yet; serve responses from an in-memory mock.
+// Set to false and point BASE_URL at a real server to go live.
+private const val USE_MOCK_BACKEND = true
+
 val networkModule = module {
     single {
-        HttpClient(Android) {
+        val engine = if (USE_MOCK_BACKEND) MockBackend().engine else Android.create()
+        HttpClient(engine) {
             install(ContentNegotiation) {
                 json(Json { ignoreUnknownKeys = true })
             }
